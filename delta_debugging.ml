@@ -24,7 +24,7 @@ type testcase_outcome = PASS | FAIL | UNRESOLVED ;;
 
 let print_outcome oc = 
   match oc with 
-    PASS -> print_string "PASS" 
+  | PASS -> print_string "PASS" 
   | FAIL -> print_string "FAIL"
   | UNRESOLVED -> print_string "UNRESOLVED" ;;
 
@@ -36,7 +36,7 @@ let print_outcome oc =
  *  *)
 let rec test_rec tc pg =  
   match tc with 
-    1::tail -> test_rec tail 1  (*first sign, carry on*)
+  | 1::tail -> test_rec tail 1  (*first sign, carry on*)
   | 7::tail -> if pg = 1 
                then test_rec tail 8 
                else UNRESOLVED  
@@ -125,10 +125,10 @@ end ;;
 let rec set_diff_rec op1 op2 =
   (* Start from the larger set *)
   match op1 with
-    [] -> []
+  | [] -> []
   | op1_h::op1_t -> 
       match op2 with
-        [] -> op1
+      | [] -> op1
       | op2_h::op2_t -> 
           if op1_h = op2_h 
           then set_diff_rec op1_t op2_t 
@@ -137,7 +137,7 @@ let rec set_diff_rec op1 op2 =
 (* Another version of function set_diff_rec *)
 let rec set_diff_rec_2 op1 op2 =
   match (op1, op2) with
-    ([], _) -> []
+  | ([], _) -> []
   | (_, []) -> op1
   | (op1_h::op1_t, op2_h::op2_t) -> 
       if op1_h = op2_h 
@@ -193,8 +193,9 @@ let rec dd_rec c0 cx n i =
         let oc_union = test union and 
             oc_cplmt = test cplmt in 
           match (oc_union, oc_cplmt) with 
+
             (* reduce to subset *)
-            (FAIL, _) -> dd_rec c0 union 2 0 
+          | (FAIL, _) -> dd_rec c0 union 2 0 
 
             (* increase to complement *)
           | (_, PASS) -> dd_rec cplmt cx 2 0 
@@ -204,7 +205,7 @@ let rec dd_rec c0 cx n i =
 
             (* reduce to complement *)
           | (_, FAIL) -> dd_rec c0 cplmt (max (n-2) 2) 0 
-
+            
           | (_, _) -> 
               (* still has more subsets to evaluate, do tail recursion*)
               if i < (n-1) 
@@ -231,7 +232,7 @@ let rec ddmin_rec array n i =
   let case = subset array n i in  
     let outcome = test (Array.to_list case) in   
       match outcome with 
-        FAIL -> 
+      | FAIL -> 
           print_int_array array; 
           if i < n 
           then ddmin_rec case 2 0
@@ -286,8 +287,10 @@ let main () =
 
 (* Tracing setting 
 #trace ddmin_rec ;;
-#trace dd_rec ;;
+
 *)
+
+#trace dd_rec ;;
 
 
 
