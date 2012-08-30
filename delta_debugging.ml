@@ -285,12 +285,12 @@ let main () =
   print_int profiling.dd_test_count;
   print_newline() ;;
 
-(* Tracing setting 
+(* directives for toplevel system ocaml  
 #trace ddmin_rec ;;
-
+#trace dd_rec ;;
 *)
 
-#trace dd_rec ;;
+
 
 
 
